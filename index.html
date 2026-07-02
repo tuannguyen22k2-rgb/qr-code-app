@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Camera</title>
 
 <link rel="manifest" href="manifest.json">
 
 <meta name="theme-color" content="#000000">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
+
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
 <meta name="apple-mobile-web-app-title" content="Camera">
 
 <link rel="apple-touch-icon" href="icon-192.png">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -25,9 +32,15 @@
 html,body{
     width:100%;
     height:100%;
-    background:#000;
     overflow:hidden;
+    background:#000;
     font-family:Arial,sans-serif;
+
+    touch-action:none;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    -webkit-tap-highlight-color:transparent;
 }
 
 body{
@@ -42,14 +55,15 @@ body{
 }
 
 h1{
-    font-size:42px;
+    font-size:48px;
 }
 
 p{
     margin-top:15px;
     font-size:18px;
-    color:#ccc;
+    color:#bbb;
 }
+
 </style>
 
 </head>
@@ -57,16 +71,46 @@ p{
 <body>
 
 <div class="container">
-    <h1>📷 Camera</h1>
-    <p>Đang khởi động...</p>
+
+<h1>📷 Camera</h1>
+
+<p>Đang khởi động...</p>
+
 </div>
 
 <script>
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js');
-    });
+// Khóa toàn bộ thao tác
+[
+"click",
+"touchstart",
+"touchmove",
+"touchend",
+"mousedown",
+"mouseup",
+"contextmenu",
+"dblclick"
+].forEach(event=>{
+
+document.addEventListener(event,function(e){
+
+e.preventDefault();
+
+e.stopPropagation();
+
+},{passive:false});
+
+});
+
+// Đăng ký Service Worker
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+navigator.serviceWorker.register("./sw.js");
+
+});
+
 }
 
 </script>
